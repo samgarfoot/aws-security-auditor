@@ -165,6 +165,65 @@ python3 aws_auditor.py
 - [6] Exit
 - [0] Help / Configure
 
+## Cron Scheduling
+
+The tool supports fully autonomous background operation via cron — scanning your AWS environment automatically at the configured interval without any user interaction. This mirrors how enterprise security monitoring tools operate in production environments.
+
+**How it works:**
+
+A lightweight wrapper script (`run_auditor.sh`) loads your environment variables and runs the auditor in cron mode. The cron scheduler calls this script at the configured interval, generates reports, sends alerts, and handles escalations — all without Terminal being open.
+
+**Start cron scheduling:**
+
+```bash
+python3 aws_auditor.py --start-cron
+```
+
+This installs a cron job that runs every `SCAN_INTERVAL_MINUTES` minutes automatically. You will see:
+
+Cron job installed successfully!
+
+Scanning every 30 minutes automatically
+
+Logs saved to: /tmp/aws_auditor.log
+
+**Stop cron scheduling:**
+
+```bash
+python3 aws_auditor.py --kill-cron
+```
+
+Removes the cron job and confirms the auditor is no longer running automatically.
+
+**Verify cron is installed:**
+
+```bash
+crontab -l
+```
+
+**View live cron logs:**
+
+```bash
+tail -f /tmp/aws_auditor.log
+```
+
+**Manage cron from within the tool:**
+
+Cron can also be started and stopped from the interactive menu via **option 3 — Cron scheduler**. The menu shows a live `● ACTIVE` or `● INACTIVE` indicator so you can see at a glance whether automatic scanning is running.
+
+**Cron mode flags:**
+
+| Flag | Purpose |
+|------|---------|
+| `--start-cron` | Installs the cron job |
+| `--kill-cron` | Removes the cron job |
+| `--cron` | Used internally — skips menu and runs scan directly |
+| `--cron --continuous` | Used internally — runs scan in continuous escalation mode |
+
+> **Note:** Cron does not load your shell environment automatically. The included `run_auditor.sh` wrapper handles this by sourcing `~/.zshrc` before running the scanner, ensuring your email credentials and AWS configuration are available to the background process.
+
+---
+
 ## Alert Flow
 - Scan detects Critical/High findings
 - Consolidated email sent to primary recipient
