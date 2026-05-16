@@ -12,21 +12,18 @@ Opens the interactive CLI menu. Use arrow keys to navigate the intro screen and 
 
 ---
 
-### Run in cron/automated mode (no menu)
-```bash
-python3 aws_auditor.py --cron
-```
-Skips the interactive menu and runs a single scan directly. Used by cron scheduler for automated background scanning.
-
----
-
 ### Run in continuous automated mode
 ```bash
-python3 aws_auditor.py --cron --continuous
+python3 aws_auditor.py --start-cron
 ```
 Skips the menu and runs as part of continuous monitoring. Used internally by the tool when option 2 is selected.
 
 ---
+
+### Stop Cron mode
+```bash
+python3 aws_auditor.py --kill-cron
+```
 
 ### Acknowledge all findings
 ```bash
