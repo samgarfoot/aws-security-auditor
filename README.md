@@ -1,6 +1,13 @@
+![Python](https://img.shields.io/badge/python-3.x-blue)
+![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-green)
+![AWS](https://img.shields.io/badge/AWS-eu--west--2-orange)
+
 # AWS Security Auditor
 
 A Python-based automated security auditing tool for AWS environments, mapping findings to CIS Critical Security Controls and the NIST Cybersecurity Framework. Built as part of a home lab infrastructure project to demonstrate real-world security engineering practices.
+
+---
 
 ## Features
 
@@ -16,6 +23,7 @@ A Python-based automated security auditing tool for AWS environments, mapping fi
 - Interactive CLI — arrow key menu system with built-in help and configuration editor
 - Session-aware cleanup — option to discard reports from the current session without affecting previous scans
 
+---
 
 ## Checks Performed
 
@@ -37,6 +45,64 @@ A Python-based automated security auditing tool for AWS environments, mapping fi
 | GuardDuty | Enabled and active | HIGH | Control 13 |
 | VPC | Flow logs enabled | HIGH | Control 13 |
 
+---
+
+## Screenshots
+
+### 1. Tool Home Screen
+![home_screen](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/01_home_screen.png)
+> The CLI banner displays on launch showing the tool name, services covered, active frameworks, and live stats including the last security score, scan interval, and number of saved reports. A colour legend shows the severity indicator colours used throughout the tool.
+
+---
+
+### 2. Interactive Menu
+![main_menu](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/02_main_menu.png)
+> After confirming the audit the numbered menu presents all available options. Engineers can run a single scan, start continuous monitoring, acknowledge findings, view saved reports, reset scan data, or access the built-in help and configuration editor.
+
+---
+
+### 3. Scan Terminal Output
+![terminal](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/03_scan_terminal.png)
+> The scanner runs checks across all configured AWS services in sequence, displaying real-time PASS and FAIL results as each check completes. The audit summary at the bottom shows total checks, passed, failed, critical and high counts, along with full remediation steps for every failed finding.
+
+---
+
+### 4. HTML Audit Report — Before Remediation
+![1st_audit](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/04_audit1.png)
+> The first audit report showing the initial security posture of the environment. The score card shows a Poor rating with findings colour coded by severity — Critical in red, High in amber, and Pass in green. Each failed finding includes a specific remediation step.
+
+---
+
+### 5. CIS Compliance Report — Before Remediation
+![compliance-1](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/05_compliance.png)
+> The formal CIS and NIST compliance report generated alongside the audit report. Each CIS Critical Security Control assessed is shown as Compliant or Non-Compliant, with NIST CSF Protect and Detect functions mapped below. Non-compliant controls are highlighted in red.
+
+---
+
+### 6. Automated Alert Email
+![email](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/06_email.jpeg)
+> When Critical or High findings are detected the tool automatically sends a consolidated alert email to the configured recipient. The subject line includes the current security score and finding counts. The email body separates Critical and High findings with full remediation steps, and the HTML audit report and CIS compliance report are attached for immediate review.
+
+---
+
+### 7. HTML Audit Report — After Remediation
+![audit-2](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/07_audit2.png)
+> The second audit report following remediation of the identified findings. The security score has improved significantly, moving from Poor to a higher rating as critical and high severity issues were resolved. The findings table now shows more passing checks across IAM, S3, EC2, and CloudTrail.
+
+---
+
+### 8. Changes Since Last Scan
+![system_changes](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/08_audit_changes.png)
+> The changes section at the bottom of the HTML report compares the current scan against the previous one. Resolved findings are highlighted in green and new findings in red, with the score change shown as a point difference. This drift detection capability mirrors the functionality found in enterprise security tools such as AWS Security Hub.
+
+---
+
+### 9. CIS Compliance Report — After Remediation
+![compliance_report2](https://github.com/samgarfoot/aws-security-auditor/blob/main/screenshots/09_compliance.png)
+> The updated compliance report following remediation shows additional CIS controls moving to Compliant status. The summary cards at the top reflect the improved compliance posture across both CIS Critical Security Controls and the NIST Cybersecurity Framework Protect and Detect functions.
+
+---
+
 ## Security Score
 
 The tool calculates an overall security posture score out of 100:
@@ -46,25 +112,51 @@ The tool calculates an overall security posture score out of 100:
 - LOW finding — -2 points
 - Scan error — -5 points
 
-ScoreRating:
-- 80-100 = Good
-- 60-79 = Fair
-- Below 60 = Poor
+| Score | Rating |
+|-------|--------|
+| 80-100 | Good |
+| 60-79 | Fair |
+| Below 60 | Poor |
+
+---
 
 ## Prerequisites
 
 - Python 3.x
 - AWS CLI configured with appropriate credentials
-- boto3 installed (pip3 install boto3)
-- An IAM user with at minimum PowerUserAccess and IAMReadOnlyAccess
+- boto3 installed (`pip3 install boto3`)
+- An IAM user with at minimum `PowerUserAccess` and `IAMReadOnlyAccess`
 - A Gmail account with an App Password for alert emails
 
+---
+
+## Installation
+
+```bash
+git clone https://github.com/samgarfoot/aws-security-auditor.git
+cd aws-security-auditor
+pip3 install -r requirements.txt
+```
+
+Configure your environment variables:
+
+```bash
+echo 'export AWS_AUDITOR_EMAIL="your.sender@gmail.com"' >> ~/.zshrc
+echo 'export AWS_AUDITOR_PASSWORD="yourapppassword"' >> ~/.zshrc
+echo 'export AWS_AUDITOR_RECIPIENT="your.recipient@email.com"' >> ~/.zshrc
+echo 'export AWS_AUDITOR_ESCALATION_EMAIL="your.escalation@email.com"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+---
+
 ## Usage
+
 ```bash
 python3 aws_auditor.py
 ```
 
-CLI Menu:
+**CLI Menu:**
 - [1] Run single scan
 - [2] Start continuous monitoring
 - [3] Acknowledge all findings
