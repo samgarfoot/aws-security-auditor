@@ -59,30 +59,19 @@ ScoreRating:
 - An IAM user with at minimum PowerUserAccess and IAMReadOnlyAccess
 - A Gmail account with an App Password for alert emails
 
-
-## Installation
-- cd aws-security-auditor
-- pip3 install boto3
-- Configure your environment variables:
-- bashecho 'export AWS_AUDITOR_EMAIL="your.sender@gmail.com"' >> ~/.zshrc
-- echo 'export AWS_AUDITOR_PASSWORD="yourappppassword"' >> ~/.zshrc
-- echo 'export AWS_AUDITOR_RECIPIENT="your.recipient@email.com"' >> ~/.zshrc
-- echo 'export AWS_AUDITOR_ESCALATION_EMAIL="your.escalation@email.com"' >> ~/.zshrc
-- source ~/.zshrc
-
 ## Usage
 ```bash
 python3 aws_auditor.py
 ```
 
 CLI Menu:
-[1] Run single scan
-[2] Start continuous monitoring
-[3] Acknowledge all findings
-[4] View last report
-[5] Reset scan data
-[6] Exit
-[0] Help / Configure
+- [1] Run single scan
+- [2] Start continuous monitoring
+- [3] Acknowledge all findings
+- [4] View last report
+- [5] Reset scan data
+- [6] Exit
+- [0] Help / Configure
 
 ## Alert Flow
 Scan detects Critical/High findings
