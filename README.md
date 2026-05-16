@@ -84,15 +84,6 @@ CLI Menu:
 [6] Exit
 [0] Help / Configure
 
-Acknowledge findings (stops escalation):
-```bash
-python3 aws_auditor.py --acknowledge
-```
-
-Configuration
-Settings can be changed from within the tool via option 0 → Help / Configure or by editing the top of aws_auditor.py:
-SettingDefaultDescriptionSCAN_INTERVAL_MINUTES30How often continuous scans runCRITICAL_ESCALATION_MINUTES5Time before critical findings escalateHIGH_ESCALATION_MINUTES15Time before high findings escalateAWS_REGIONeu-west-2AWS region to audit
-
 ## Alert Flow
 Scan detects Critical/High findings
 → Consolidated email sent to primary recipient
