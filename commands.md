@@ -124,7 +124,8 @@ source ~/.zshrc
 ### Change recipients within the tool
 You can also update recipient emails directly from the CLI without editing files:
 
-```python3 aws_auditor.py
+```
+python3 aws_auditor.py
 ```
 → Yes → 0 (Help/Configure) → Y → select recipient → Enter new email → Q to save
 
