@@ -74,12 +74,12 @@ CLI Menu:
 - [0] Help / Configure
 
 ## Alert Flow
-Scan detects Critical/High findings
-→ Consolidated email sent to primary recipient
-→ HTML audit report + CIS compliance report attached
-→ If unacknowledged after threshold → escalation email to secondary recipient
-→ Engineer acknowledges via CLI command
-→ Escalation stops
+- Scan detects Critical/High findings
+- Consolidated email sent to primary recipient
+- HTML audit report + CIS compliance report attached
+- If unacknowledged after threshold → escalation email to secondary recipient
+- Engineer acknowledges via CLI command
+- Escalation stops
 
 ## Reports Generated
 Every scan produces three files:
